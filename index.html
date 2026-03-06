@@ -1,0 +1,1439 @@
+<!doctype html>
+<html lang="fr" class="h-full">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chaltech - Solutions Technologiques Innovantes | RDC</title>
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <script src="/_sdk/element_sdk.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&amp;family=Work+Sans:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body { height: 100%; width: 100%; }
+    
+    :root {
+      --bg-primary: #0a0a0f;
+      --bg-secondary: #12121a;
+      --text-primary: #ffffff;
+      --accent-primary: #3b82f6;
+      --accent-secondary: #06b6d4;
+    }
+    
+    body {
+      font-family: 'Work Sans', sans-serif;
+      background: linear-gradient(135deg, #0a0a0f 0%, #1a1a2e 50%, #16213e 100%);
+      color: var(--text-primary);
+      letter-spacing: 0.3px;
+    }
+    
+    .font-display { font-family: 'Syne', sans-serif; font-weight: 700; letter-spacing: -1px; }
+    
+    .glass {
+      background: rgba(255, 255, 255, 0.04);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(59, 130, 246, 0.15);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    }
+    
+    .glass-card {
+      background: linear-gradient(135deg, rgba(59, 130, 246, 0.06) 0%, rgba(6, 182, 212, 0.04) 100%);
+      backdrop-filter: blur(15px);
+      border: 1px solid rgba(59, 130, 246, 0.2);
+      box-shadow: 0 8px 24px rgba(59, 130, 246, 0.1);
+    }
+    
+    .gradient-text {
+      background: linear-gradient(135deg, #00d4ff 0%, #0099ff 50%, #7c3aed 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      font-weight: 800;
+    }
+    
+    .gradient-border {
+      position: relative;
+      background: var(--bg-secondary);
+    }
+    .gradient-border::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      padding: 1px;
+      background: linear-gradient(135deg, #3b82f6, #06b6d4, #8b5cf6);
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      border-radius: inherit;
+      pointer-events: none;
+    }
+    
+    @keyframes float {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      50% { transform: translateY(-25px) rotate(-2deg); }
+    }
+    
+    @keyframes pulse-glow {
+      0%, 100% { 
+        box-shadow: 0 0 20px rgba(0, 212, 255, 0.3), 0 0 60px rgba(59, 130, 246, 0.2);
+        transform: scale(1);
+      }
+      50% { 
+        box-shadow: 0 0 40px rgba(0, 212, 255, 0.6), 0 0 80px rgba(59, 130, 246, 0.4);
+        transform: scale(1.05);
+      }
+    }
+    
+    @keyframes slide-up {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    @keyframes fade-in {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    
+    .animate-float { animation: float 6s ease-in-out infinite; }
+    .animate-pulse-glow { animation: pulse-glow 3s ease-in-out infinite; }
+    .animate-slide-up { animation: slide-up 0.8s ease-out forwards; }
+    .animate-fade-in { animation: fade-in 1s ease-out forwards; }
+    
+    .animate-delay-1 { animation-delay: 0.1s; }
+    .animate-delay-2 { animation-delay: 0.2s; }
+    .animate-delay-3 { animation-delay: 0.3s; }
+    .animate-delay-4 { animation-delay: 0.4s; }
+    .animate-delay-5 { animation-delay: 0.5s; }
+    
+    .bg-grid {
+      background-image: 
+        linear-gradient(rgba(0, 212, 255, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 212, 255, 0.04) 1px, transparent 1px),
+        radial-gradient(circle at 20% 50%, rgba(0, 212, 255, 0.05) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(0, 99, 255, 0.05) 0%, transparent 50%);
+      background-size: 60px 60px, 60px 60px, 1px 1px, 1px 1px;
+    }
+    
+    .btn-primary {
+      background: linear-gradient(135deg, #00d4ff 0%, #0099ff 100%);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: 0 4px 20px rgba(0, 212, 255, 0.3);
+      font-weight: 600;
+      letter-spacing: 0.5px;
+    }
+    .btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 40px rgba(0, 212, 255, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    }
+    
+    .btn-secondary {
+      background: rgba(0, 212, 255, 0.08);
+      border: 2px solid rgba(0, 212, 255, 0.4);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      font-weight: 600;
+    }
+    .btn-secondary:hover {
+      background: rgba(0, 212, 255, 0.15);
+      border-color: #00d4ff;
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(0, 212, 255, 0.2);
+    }
+    
+    .service-card {
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+    }
+    .service-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(0, 212, 255, 0.15), transparent);
+      transition: left 0.6s ease;
+    }
+    .service-card:hover::before {
+      left: 100%;
+    }
+    .service-card:hover {
+      transform: translateY(-12px);
+      box-shadow: 0 24px 48px rgba(0, 212, 255, 0.25);
+      border-color: rgba(0, 212, 255, 0.4);
+    }
+    .service-card:hover .card-icon {
+      transform: scale(1.15) rotate(-5deg);
+      box-shadow: 0 8px 24px rgba(0, 212, 255, 0.4);
+    }
+    
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -28px;
+      top: 8px;
+      width: 14px;
+      height: 14px;
+      background: linear-gradient(135deg, #00d4ff, #0099ff);
+      border-radius: 50%;
+      box-shadow: 0 0 16px rgba(0, 212, 255, 0.5), inset 0 1px 2px rgba(255, 255, 255, 0.3);
+    }
+    .timeline-item::after {
+      content: '';
+      position: absolute;
+      left: -25px;
+      top: 28px;
+      width: 2px;
+      height: calc(100% + 20px);
+      background: linear-gradient(180deg, rgba(0, 212, 255, 0.6), rgba(0, 99, 255, 0.2));
+    }
+    .timeline-item:last-child::after {
+      display: none;
+    }
+    
+    ::-webkit-scrollbar { width: 10px; }
+    ::-webkit-scrollbar-track { background: rgba(0, 0, 0, 0.3); border-radius: 10px; }
+    ::-webkit-scrollbar-thumb { 
+      background: linear-gradient(180deg, #00d4ff, #0099ff);
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 212, 255, 0.3);
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      box-shadow: 0 0 16px rgba(0, 212, 255, 0.5);
+    }
+    
+    .nav-link {
+      position: relative;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      font-weight: 500;
+      letter-spacing: 0.3px;
+    }
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: -6px;
+      left: 0;
+      width: 0;
+      height: 3px;
+      background: linear-gradient(90deg, #00d4ff, #0099ff);
+      border-radius: 2px;
+      transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: 0 2px 8px rgba(0, 212, 255, 0.3);
+    }
+    .nav-link:hover {
+      color: #00d4ff;
+    }
+    .nav-link:hover::after {
+      width: 100%;
+    }
+    
+    .project-card {
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+    }
+    .project-card:hover {
+      transform: translateY(-8px) scale(1.02);
+      box-shadow: 0 20px 50px rgba(0, 212, 255, 0.3);
+    }
+    .project-card:hover .project-overlay {
+      opacity: 1;
+      backdrop-filter: blur(8px);
+    }
+    
+    .input-modern:focus {
+      outline: none;
+      border-color: #00d4ff;
+      box-shadow: 0 0 0 4px rgba(0, 212, 255, 0.15), inset 0 1px 2px rgba(0, 212, 255, 0.1);
+      background: rgba(0, 212, 255, 0.04);
+    }
+    
+    .orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      opacity: 0.3;
+    }
+    
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.8s ease;
+    }
+    .reveal.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .skill-bar {
+      height: 6px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 3px;
+      overflow: hidden;
+      margin-top: 6px;
+    }
+
+    .skill-bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #3b82f6, #06b6d4);
+      border-radius: 3px;
+      animation: fillBar 1.5s ease-out forwards;
+      opacity: 0;
+    }
+
+    @keyframes fillBar {
+      from {
+        width: 0;
+        opacity: 1;
+      }
+      to {
+        width: var(--width, 100%);
+        opacity: 1;
+      }
+    }
+  </style>
+  <style>body { box-sizing: border-box; }</style>
+  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+ </head>
+ <body class="h-full">
+  <div id="app-wrapper" class="w-full h-full overflow-auto bg-grid"><!-- Navigation -->
+   <nav class="fixed top-0 left-0 right-0 z-50 glass">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+     <div class="flex items-center justify-between h-16 md:h-20">
+      <div class="flex items-center gap-3">
+       <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-blue-500 to-cyan-500 flex items-center justify-center"><span class="text-lg font-bold text-white">⚡</span>
+       </div><a href="#hero" class="font-display font-bold text-lg md:text-xl">CHALTECH</a>
+      </div><button id="mobile-menu-btn" class="md:hidden p-2 rounded-lg hover:bg-white/5">
+       <svg class="w-6 h-6" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+       </svg></button>
+      <div class="hidden md:flex items-center gap-8"><a href="#about" class="nav-link text-sm text-gray-300 hover:text-white">À Propos</a> <a href="#services" class="nav-link text-sm text-gray-300 hover:text-white">Services</a> <a href="#projects" class="nav-link text-sm text-gray-300 hover:text-white">Réalisations</a> <a href="#team" class="nav-link text-sm text-gray-300 hover:text-white">Équipe</a> <a href="#contact" class="btn-primary px-5 py-2 rounded-full text-sm font-medium">Nous Contacter</a>
+      </div>
+     </div>
+     <div id="mobile-menu" class="hidden md:hidden pb-4">
+      <div class="flex flex-col gap-3"><a href="#about" class="px-4 py-2 text-gray-300 hover:text-white hover:bg-white/5 rounded-lg">À Propos</a> <a href="#services" class="px-4 py-2 text-gray-300 hover:text-white hover:bg-white/5 rounded-lg">Services</a> <a href="#projects" class="px-4 py-2 text-gray-300 hover:text-white hover:bg-white/5 rounded-lg">Réalisations</a> <a href="#team" class="px-4 py-2 text-gray-300 hover:text-white hover:bg-white/5 rounded-lg">Équipe</a> <a href="#contact" class="btn-primary px-4 py-2 rounded-lg text-center font-medium">Nous Contacter</a>
+      </div>
+     </div>
+    </div>
+   </nav><!-- Hero Section -->
+   <section id="hero" class="relative min-h-screen flex items-center justify-center px-4 pt-20 overflow-hidden">
+    <div class="orb w-96 h-96 bg-blue-500 -top-48 -left-48"></div>
+    <div class="orb w-80 h-80 bg-cyan-500 -bottom-40 -right-40"></div>
+    <div class="orb w-64 h-64 bg-purple-500 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"></div>
+    <div class="relative z-10 w-full">
+     <div class="max-w-5xl mx-auto">
+      <div class="grid lg:grid-cols-2 gap-12 items-center"><!-- Text Content -->
+       <div class="order-2 lg:order-1 text-center lg:text-left">
+        <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-card mb-8 animate-slide-up opacity-0"><span class="w-2 h-2 bg-cyan-400 rounded-full animate-pulse"></span> <span class="text-sm text-gray-300">Bienvenue chez Chaltech</span>
+        </div>
+        <h1 id="company-name" class="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-4 animate-slide-up opacity-0 animate-delay-1">CHALTECH</h1>
+        <p id="company-tagline" class="text-lg sm:text-xl md:text-2xl text-cyan-400 mb-4 animate-slide-up opacity-0 animate-delay-2 font-display font-bold">Innovation Technologique pour l'Afrique</p>
+        <p class="text-base sm:text-lg text-gray-400 max-w-2xl mb-10 animate-slide-up opacity-0 animate-delay-3 leading-relaxed">"Nous transformons vos défis technologiques en opportunités de croissance. Solutions intelligentes, résultats durables."</p>
+        <div class="flex flex-col sm:flex-row items-center lg:items-start justify-center lg:justify-start gap-4 animate-slide-up opacity-0 animate-delay-4"><a href="#services" class="btn-primary px-8 py-4 rounded-full font-semibold text-white flex items-center gap-2 w-full sm:w-auto justify-center">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+          </svg> Nos Services </a> <a href="#projects" class="btn-secondary px-8 py-4 rounded-full font-semibold text-white w-full sm:w-auto text-center">Voir nos projets</a> <a href="#contact" class="btn-secondary px-8 py-4 rounded-full font-semibold text-cyan-400 border-cyan-400/50 hover:border-cyan-400 hover:bg-cyan-400/10 w-full sm:w-auto text-center">Nous Contacter</a>
+        </div>
+       </div><!-- Profile Image -->
+       <div class="order-1 lg:order-2 relative animate-slide-up opacity-0 animate-delay-2">
+        <div class="relative w-full max-w-sm mx-auto">
+         <div class="absolute inset-0 bg-gradient-to-r from-blue-500 via-cyan-500 to-purple-500 rounded-3xl blur-2xl opacity-30 animate-pulse"></div>
+         <div class="relative glass-card rounded-3xl overflow-hidden border border-white/10 p-1">
+          <div class="relative w-full aspect-square rounded-3xl overflow-hidden bg-gradient-to-br from-blue-900/30 to-purple-900/30">
+           <div class="w-full h-full flex items-center justify-center bg-gradient-to-br from-blue-600/20 via-cyan-600/10 to-purple-600/20 backdrop-blur-sm">
+            <div class="text-center">
+             <div class="w-32 h-32 mx-auto mb-4 rounded-full bg-gradient-to-br from-blue-500 to-cyan-500 flex items-center justify-center shadow-2xl border-4 border-white/20"><span class="text-6xl font-display font-bold text-white">CM</span>
+             </div>
+             <div class="space-y-2">
+              <div class="flex items-center justify-center gap-2"><span class="w-3 h-3 bg-cyan-400 rounded-full animate-pulse"></span> <span class="text-cyan-400 font-semibold text-sm">Solutions Technologiques</span>
+              </div>
+              <p class="text-gray-300 text-xs">Kinshasa • RDC</p>
+             </div>
+            </div>
+           </div>
+           <div class="absolute inset-0 opacity-20">
+            <div class="absolute top-0 left-0 w-20 h-20 border-t-2 border-l-2 border-cyan-400"></div>
+            <div class="absolute top-0 right-0 w-20 h-20 border-t-2 border-r-2 border-blue-400"></div>
+            <div class="absolute bottom-0 left-0 w-20 h-20 border-b-2 border-l-2 border-purple-400"></div>
+            <div class="absolute bottom-0 right-0 w-20 h-20 border-b-2 border-r-2 border-cyan-400"></div>
+           </div>
+          </div>
+         </div>
+         <div class="absolute -top-4 -right-4 glass-card px-4 py-3 rounded-xl animate-float" style="animation-delay: 0.5s;">
+          <div class="flex items-center gap-3">
+           <div class="w-10 h-10 rounded-lg bg-blue-500/20 flex items-center justify-center">
+            <svg class="w-5 h-5 text-blue-400" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+            </svg>
+           </div>
+           <div>
+            <p class="text-lg font-bold">L2</p>
+            <p class="text-xs text-gray-400">Informatique</p>
+           </div>
+          </div>
+         </div>
+         <div class="absolute -bottom-4 -left-4 glass-card px-4 py-3 rounded-xl animate-float" style="animation-delay: 1s;">
+          <div class="flex items-center gap-3">
+           <div class="w-10 h-10 rounded-lg bg-cyan-500/20 flex items-center justify-center">
+            <svg class="w-5 h-5 text-cyan-400" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" />
+            </svg>
+           </div>
+           <div>
+            <p class="text-lg font-bold">2025</p>
+            <p class="text-xs text-gray-400">Chaltech</p>
+           </div>
+          </div>
+         </div>
+        </div>
+       </div>
+      </div>
+     </div>
+     <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
+      <svg class="w-6 h-6 text-gray-500" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+      </svg>
+     </div>
+    </div>
+   </section><!-- About Section -->
+   <section id="about" class="relative py-20 md:py-32 px-4">
+    <div class="max-w-7xl mx-auto">
+     <div class="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+      <div>
+       <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-card mb-6"><span class="text-blue-400">🌟</span> <span class="text-sm text-gray-300">À Propos de Nous</span>
+       </div>
+       <h2 class="font-display text-3xl md:text-4xl lg:text-5xl font-bold mb-6">Chaltech : <span class="gradient-text">L'Avenir Technologique</span></h2>
+       <div class="space-y-6 text-gray-300 leading-relaxed">
+        <p>Chaltech est une agence de solutions technologiques fondée en <span class="text-white font-semibold">août 2025</span> à Kinshasa, en République Démocratique du Congo. Notre mission est claire : <span class="text-cyan-400 font-semibold">transformer les idées en réalité through cutting-edge technology</span>.</p>
+        <p>Nous croyons que l'Afrique possède un potentiel technologique immense. Nos équipes travaillent pour créer des solutions intelligentes, durables et accessibles qui répondent aux défis locaux et aux ambitions mondiales.</p>
+        <p><span class="text-white font-semibold">De l'électricité à l'intelligence artificielle :</span> nos racines dans les domaines techniques variés nous permettent de proposer des approches holistiques pour chaque projet.</p>
+        <div class="grid grid-cols-3 gap-4 mt-8 pt-8 border-t border-white/10">
+         <div class="text-center">
+          <div class="text-2xl font-bold gradient-text mb-1">
+           50+
+          </div>
+          <p class="text-xs text-gray-400">Projets Réalisés</p>
+         </div>
+         <div class="text-center">
+          <div class="text-2xl font-bold gradient-text mb-1">
+           100+
+          </div>
+          <p class="text-xs text-gray-400">Clients Satisfaits</p>
+         </div>
+         <div class="text-center">
+          <div class="text-2xl font-bold gradient-text mb-1">
+           12+
+          </div>
+          <p class="text-xs text-gray-400">Experts</p>
+         </div>
+        </div>
+       </div>
+      </div>
+      <div class="relative">
+       <div class="grid grid-cols-2 gap-4">
+        <div class="glass-card rounded-2xl p-6 text-center">
+         <div class="text-4xl mb-3">
+          💡
+         </div>
+         <h3 class="font-semibold text-white mb-2">Innovation</h3>
+         <p class="text-sm text-gray-400">Idées novatrices &amp; solutions créatives</p>
+        </div>
+        <div class="glass-card rounded-2xl p-6 text-center">
+         <div class="text-4xl mb-3">
+          🎯
+         </div>
+         <h3 class="font-semibold text-white mb-2">Qualité</h3>
+         <p class="text-sm text-gray-400">Excellence dans chaque détail</p>
+        </div>
+        <div class="glass-card rounded-2xl p-6 text-center">
+         <div class="text-4xl mb-3">
+          🌍
+         </div>
+         <h3 class="font-semibold text-white mb-2">Impact Global</h3>
+         <p class="text-sm text-gray-400">Solutions pour l'Afrique &amp; le monde</p>
+        </div>
+        <div class="glass-card rounded-2xl p-6 text-center">
+         <div class="text-4xl mb-3">
+          👥
+         </div>
+         <h3 class="font-semibold text-white mb-2">Collaboration</h3>
+         <p class="text-sm text-gray-400">Partenariats stratégiques forts</p>
+        </div>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section><!-- Story Section -->
+   <section id="story" class="relative py-20 md:py-32 px-4">
+    <div class="max-w-7xl mx-auto">
+     <div class="grid lg:grid-cols-2 gap-12 lg:gap-20 items-start"><!-- Timeline -->
+      <div class="order-2 lg:order-1">
+       <div class="relative">
+        <div class="absolute left-4 top-0 bottom-0 w-1 bg-gradient-to-b from-blue-500 via-cyan-500 to-purple-500"></div>
+        <div class="space-y-8 pl-16">
+         <div class="relative">
+          <div class="absolute -left-8 top-2 w-6 h-6 rounded-full bg-blue-500 border-4 border-blue-900 shadow-lg shadow-blue-500/50"></div>
+          <div class="glass-card p-4 rounded-lg">
+           <p class="text-sm text-blue-400 font-semibold">19/02/2007</p>
+           <p class="text-white font-medium">Fungurume</p>
+           <p class="text-gray-400 text-sm">Naissance et débuts</p>
+          </div>
+         </div>
+         <div class="relative">
+          <div class="absolute -left-8 top-2 w-6 h-6 rounded-full bg-cyan-500 border-4 border-cyan-900 shadow-lg shadow-cyan-500/50"></div>
+          <div class="glass-card p-4 rounded-lg">
+           <p class="text-sm text-cyan-400 font-semibold">2015-2020</p>
+           <p class="text-white font-medium">Fungurume &amp; Likasi</p>
+           <p class="text-gray-400 text-sm">Primaire et secondaire humanitaire</p>
+          </div>
+         </div>
+         <div class="relative">
+          <div class="absolute -left-8 top-2 w-6 h-6 rounded-full bg-purple-500 border-4 border-purple-900 shadow-lg shadow-purple-500/50"></div>
+          <div class="glass-card p-4 rounded-lg">
+           <p class="text-sm text-purple-400 font-semibold">2024</p>
+           <p class="text-white font-medium">Likasi</p>
+           <p class="text-gray-400 text-sm">Fin du cursus humanitaire</p>
+          </div>
+         </div>
+         <div class="relative">
+          <div class="absolute -left-8 top-2 w-6 h-6 rounded-full bg-green-500 border-4 border-green-900 shadow-lg shadow-green-500/50"></div>
+          <div class="glass-card p-4 rounded-lg">
+           <p class="text-sm text-green-400 font-semibold">14/10/2024</p>
+           <p class="text-white font-medium">Kinshasa</p>
+           <p class="text-gray-400 text-sm">Arrivée et nouveau départ</p>
+          </div>
+         </div>
+         <div class="relative">
+          <div class="absolute -left-8 top-2 w-6 h-6 rounded-full bg-orange-500 border-4 border-orange-900 shadow-lg shadow-orange-500/50"></div>
+          <div class="glass-card p-4 rounded-lg">
+           <p class="text-sm text-orange-400 font-semibold">2025</p>
+           <p class="text-white font-medium">Kinshasa</p>
+           <p class="text-gray-400 text-sm">Fondateur Chaltech - IA &amp; Tech</p>
+          </div>
+         </div>
+        </div>
+       </div><!-- Content -->
+       <div class="order-1 lg:order-2">
+        <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-card mb-6"><span class="text-cyan-400">📖</span> <span class="text-sm text-gray-300">Mon histoire</span>
+        </div>
+        <h2 id="story-title" class="font-display text-3xl md:text-4xl lg:text-5xl font-bold mb-6">Mon <span class="gradient-text">Parcours</span></h2>
+        <div class="space-y-6 text-gray-300 leading-relaxed">
+         <p><span class="text-white font-semibold">Né le 19 février 2007 à Fungurume</span>, une petite ville du Katanga, j'ai grandi entre Fungurume et Likasi, où j'ai reçu mon éducation primaire et secondaire de qualité. Ces années m'ont forgé la discipline, la curiosité et la passion pour l'apprentissage.</p>
+         <p>Avant de découvrir l'informatique, j'ai travaillé comme <span class="text-white font-semibold">électricien</span> à Likasi. Un métier qui m'a enseigné la rigueur, la responsabilité et le respect du travail bien exécuté - des valeurs qui guident toujours ma démarche professionnelle.</p>
+         <p><span class="text-white font-semibold">J'ai terminé mon cursus humanitaire en 2024</span>, marquant la fin d'une période d'études intense et l'émergence d'une nouvelle vision de l'avenir.</p>
+         <p><span class="text-white font-semibold">Le 14 octobre 2024, j'ai fait un choix décisif :</span> je suis venu à Kinshasa pour poursuivre mon rêve technologique. C'est ici que tout a vraiment changé. Loin de ma région natale, mais plus près de mes ambitions.</p>
+         <p><span class="text-white font-semibold">De l'électricité aux systèmes intelligents :</span> j'ai réalisé que ma véritable passion était la technologie, le génie logiciel et l'intelligence artificielle. Kinshasa m'a offert les outils et l'écosystème pour transformer cette passion en réalité.</p>
+         <p class="text-cyan-400 italic">"14 octobre 2024 : la date où j'ai décidé de suivre ma passion. Depuis Kinshasa, je bâtis l'avenir."</p>
+        </div>
+        <div class="grid grid-cols-3 gap-4 mt-8 pt-8 border-t border-white/10">
+         <div class="text-center">
+          <div class="text-2xl font-bold gradient-text mb-1">
+           17+
+          </div>
+          <p class="text-xs text-gray-400">Années</p>
+         </div>
+         <div class="text-center">
+          <div class="text-2xl font-bold gradient-text mb-1">
+           3+
+          </div>
+          <p class="text-xs text-gray-400">Domaines</p>
+         </div>
+         <div class="text-center">
+          <div class="text-2xl font-bold gradient-text mb-1">
+           ∞
+          </div>
+          <p class="text-xs text-gray-400">Passion</p>
+         </div>
+        </div>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section><!-- Chaltech Birth Section -->
+   <section id="chaltech" class="relative py-20 md:py-32 px-4">
+    <div class="max-w-7xl mx-auto">
+     <div class="grid lg:grid-cols-2 gap-12 items-center">
+      <div>
+       <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-card mb-6"><span class="text-blue-400">🚀</span> <span class="text-sm text-gray-300">Le commencement</span>
+       </div>
+       <h2 id="chaltech-title" class="font-display text-3xl md:text-4xl lg:text-5xl font-bold mb-6">La Naissance de <span class="gradient-text">Chaltech</span></h2>
+       <div class="space-y-6 text-gray-300 leading-relaxed mb-8">
+        <div class="glass-card p-6 rounded-xl border border-blue-500/20">
+         <div class="flex items-start gap-4">
+          <div class="text-3xl mt-1">
+           📅
+          </div>
+          <div>
+           <p id="chaltech-date" class="text-lg font-semibold text-blue-400">1er août 2025</p>
+           <p class="text-gray-400">La date officielle de création</p>
+          </div>
+         </div>
+        </div>
+        <p><span class="text-white font-semibold">Seul, dans ma chambre à Kinshasa</span>, j'ai pris la décision de lancer ma propre entreprise. Pas de bureau spectaculaire, pas d'équipe massive - juste une vision, une passion et la détermination de transformer les idées en solutions réelles.</p>
+        <p>Chaltech n'est pas juste un nom - c'est <span class="text-white font-semibold">le surnom que mes amis m'ont donné</span> à l'université, mélange de mon prénom et du mot "tech". Quand j'ai créé mon entreprise, ce nom s'imposait naturellement.</p>
+        <p><span class="text-white font-semibold">Notre mission :</span> proposer des solutions technologiques modernes et intelligentes, tout en formant la nouvelle génération d'entrepreneurs digitaux.</p>
+        <div class="border-l-4 border-cyan-500 pl-4 py-2">
+         <p class="text-cyan-400 italic text-lg font-semibold">"De l'apprentissage à l'action, du rêve à la réalité, de l'électricité à l'intelligence artificielle."</p>
+        </div>
+       </div>
+       <div class="grid grid-cols-2 gap-4">
+        <div class="glass-card p-4 rounded-lg">
+         <div class="text-2xl mb-2">
+          💡
+         </div>
+         <p class="font-semibold text-sm mb-1">Innovation</p>
+         <p class="text-xs text-gray-400">Créativité</p>
+        </div>
+        <div class="glass-card p-4 rounded-lg">
+         <div class="text-2xl mb-2">
+          🎯
+         </div>
+         <p class="font-semibold text-sm mb-1">Qualité</p>
+         <p class="text-xs text-gray-400">Excellence</p>
+        </div>
+        <div class="glass-card p-4 rounded-lg">
+         <div class="text-2xl mb-2">
+          📚
+         </div>
+         <p class="font-semibold text-sm mb-1">Formation</p>
+         <p class="text-xs text-gray-400">Transmission</p>
+        </div>
+        <div class="glass-card p-4 rounded-lg">
+         <div class="text-2xl mb-2">
+          🌍
+         </div>
+         <p class="font-semibold text-sm mb-1">Impact</p>
+         <p class="text-xs text-gray-400">Changement</p>
+        </div>
+       </div>
+       <div class="relative">
+        <div class="absolute inset-0 bg-gradient-to-r from-blue-500/20 to-cyan-500/20 rounded-3xl blur-3xl"></div>
+        <div class="relative glass-card rounded-3xl p-8 md:p-12 border border-cyan-500/30 text-center">
+         <div class="mb-6">
+          <div class="inline-flex items-center justify-center w-20 h-20 rounded-full bg-gradient-to-br from-blue-500 to-cyan-500 shadow-2xl"><span class="text-3xl">⚡</span>
+          </div>
+         </div>
+         <h3 class="font-display text-3xl font-bold mb-2">Chaltech</h3>
+         <p class="text-gray-400 text-sm mb-8">Construire l'avenir par l'intelligence technologique</p>
+         <div class="bg-gradient-to-b from-blue-900/30 to-purple-900/30 rounded-xl p-6 border border-white/10">
+          <div class="space-y-4">
+           <div class="flex items-center justify-between text-sm"><span class="text-gray-400">Fondateur</span> <span class="text-white font-semibold">Chaldin Mulongo</span>
+           </div>
+           <div class="h-px bg-gradient-to-r from-blue-500/0 via-blue-500/50 to-blue-500/0"></div>
+           <div class="flex items-center justify-between text-sm"><span class="text-gray-400">Création</span> <span class="text-cyan-400 font-semibold">01/08/2025</span>
+           </div>
+           <div class="h-px bg-gradient-to-r from-cyan-500/0 via-cyan-500/50 to-cyan-500/0"></div>
+           <div class="flex items-center justify-between text-sm"><span class="text-gray-400">Localisation</span> <span class="text-white font-semibold">Kinshasa, RDC</span>
+           </div>
+          </div>
+         </div>
+         <p class="text-xs text-gray-500 mt-6 italic">"Du rêve à la réalité en une seule détermination"</p>
+        </div>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section><!-- Services Section -->
+   <section id="services" class="relative py-20 md:py-32 px-4">
+    <div class="max-w-7xl mx-auto">
+     <div class="text-center mb-16">
+      <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-card mb-6"><span class="text-blue-400">⚡</span> <span class="text-sm text-gray-300">Services Professionnels</span>
+      </div>
+      <h2 class="font-display text-3xl md:text-4xl lg:text-5xl font-bold mb-4">Des <span class="gradient-text">Solutions Complètes</span> pour votre Succès</h2>
+      <p class="text-gray-400 max-w-2xl mx-auto">De la conception à la mise en ligne, je vous accompagne dans tous vos projets digitaux.</p>
+     </div>
+     <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <a href="#detail-web" class="service-card glass-card rounded-2xl p-6 cursor-pointer group hover:bg-blue-500/5">
+       <div class="card-icon w-14 h-14 rounded-xl bg-gradient-to-br from-blue-500/20 to-blue-600/20 flex items-center justify-center mb-5 transition-transform duration-300">
+        <svg class="w-7 h-7 text-blue-400" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+        </svg>
+       </div><h3 class="font-display text-xl font-semibold mb-3 group-hover:text-blue-400 transition-colors">Création de Sites Web</h3><p class="text-gray-400 text-sm mb-4">Sites vitrines, applications web et e-commerce sur mesure.</p>
+       <ul class="space-y-2 text-sm">
+        <li class="flex items-center gap-2 text-gray-300">
+         <svg class="w-4 h-4 text-blue-400" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+         </svg> Sites vitrines</li>
+        <li class="flex items-center gap-2 text-gray-300">
+         <svg class="w-4 h-4 text-blue-400" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+         </svg> Applications web</li>
+        <li class="flex items-center gap-2 text-gray-300">
+         <svg class="w-4 h-4 text-blue-400" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+         </svg> E-commerce</li>
+       </ul></a> <a href="#detail-hosting" class="service-card glass-card rounded-2xl p-6 cursor-pointer group hover:bg-cyan-500/5">
+       <div class="card-icon w-14 h-14 rounded-xl bg-gradient-to-br from-cyan-500/20 to-cyan-600/20 flex items-center justify-center mb-5 transition-transform duration-300">
+        <svg class="w-7 h-7 text-cyan-400" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" />
+        </svg>
+       </div><h3 class="font-display text-xl font-semibold mb-3 group-hover:text-cyan-400 transition-colors">Hébergement &amp; Déploiement</h3><p class="text-gray-400 text-sm mb-4">Mise en ligne sécurisée et maintenance 24/7.</p>
+       <ul class="space-y-2 text-sm">
+        <li class="flex items-center gap-2 text-gray-300">
+         <svg class="w-4 h-4 text-cyan-400" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+         </svg> Mise en ligne rapide</li>
+        <li class="flex items-center gap-2 text-gray-300">
+         <svg class="w-4 h-4 text-cyan-400" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+         </svg> Configuration serveur</li>
+        <li class="flex items-center gap-2 text-gray-300">
+         <svg class="w-4 h-4 text-cyan-400" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+         </svg> Maintenance 24/7</li>
+       </ul></a> <a href="#detail-training" class="service-card glass-card rounded-2xl p-6 cursor-pointer group hover:bg-purple-500/5">
+       <div class="card-icon w-14 h-14 rounded-xl bg-gradient-to-br from-purple-500/20 to-purple-600/20 flex items-center justify-center mb-5 transition-transform duration-300">
+        <svg class="w-7 h-7 text-purple-400" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+        </svg>
+       </div><h3 class="font-display text-xl font-semibold mb-3 group-hover:text-purple-400 transition-colors">Formation en Ligne</h3><p class="text-gray-400 text-sm mb-4">Programmes pratiques et personnalisés.</p>
+       <ul class="space-y-2 text-sm">
+        <li class="flex items-center gap-2 text-gray-300">
+         <svg class="w-4 h-4 text-purple-400" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+         </svg> Informatique</li>
+        <li class="flex items-center gap-2 text-gray-300">
+         <svg class="w-4 h-4 text-purple-400" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+         </svg> Intelligence Artificielle</li>
+        <li class="flex items-center gap-2 text-gray-300">
+         <svg class="w-4 h-4 text-purple-400" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+         </svg> Import/Export</li>
+       </ul></a> <a href="#detail-ai" class="service-card glass-card rounded-2xl p-6 cursor-pointer group hover:bg-green-500/5">
+       <div class="card-icon w-14 h-14 rounded-xl bg-gradient-to-br from-green-500/20 to-green-600/20 flex items-center justify-center mb-5 transition-transform duration-300">
+        <svg class="w-7 h-7 text-green-400" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+        </svg>
+       </div><h3 class="font-display text-xl font-semibold mb-3 group-hover:text-green-400 transition-colors">Solutions IA</h3><p class="text-gray-400 text-sm mb-4">Intégration et automatisation intelligentes.</p>
+       <ul class="space-y-2 text-sm">
+        <li class="flex items-center gap-2 text-gray-300">
+         <svg class="w-4 h-4 text-green-400" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+         </svg> Intégration outils IA</li>
+        <li class="flex items-center gap-2 text-gray-300">
+         <svg class="w-4 h-4 text-green-400" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+         </svg> Automatisation</li>
+        <li class="flex items-center gap-2 text-gray-300">
+         <svg class="w-4 h-4 text-green-400" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+         </svg> Optimisation</li>
+       </ul></a> <a href="#detail-marketing" class="service-card glass-card rounded-2xl p-6 cursor-pointer group hover:bg-orange-500/5">
+       <div class="card-icon w-14 h-14 rounded-xl bg-gradient-to-br from-orange-500/20 to-orange-600/20 flex items-center justify-center mb-5 transition-transform duration-300">
+        <svg class="w-7 h-7 text-orange-400" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+        </svg>
+       </div><h3 class="font-display text-xl font-semibold mb-3 group-hover:text-orange-400 transition-colors">Marketing Digital</h3><p class="text-gray-400 text-sm mb-4">Stratégie de visibilité et croissance.</p>
+       <ul class="space-y-2 text-sm">
+        <li class="flex items-center gap-2 text-gray-300">
+         <svg class="w-4 h-4 text-orange-400" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+         </svg> Branding</li>
+        <li class="flex items-center gap-2 text-gray-300">
+         <svg class="w-4 h-4 text-orange-400" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+         </svg> Stratégie visibilité</li>
+        <li class="flex items-center gap-2 text-gray-300">
+         <svg class="w-4 h-4 text-orange-400" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+         </svg> Optimisation SEO</li>
+       </ul></a> <a href="#detail-import" class="service-card glass-card rounded-2xl p-6 cursor-pointer group hover:bg-pink-500/5">
+       <div class="card-icon w-14 h-14 rounded-xl bg-gradient-to-br from-pink-500/20 to-pink-600/20 flex items-center justify-center mb-5 transition-transform duration-300">
+        <svg class="w-7 h-7 text-pink-400" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+       </div><h3 class="font-display text-xl font-semibold mb-3 group-hover:text-pink-400 transition-colors">Import / Export</h3><p class="text-gray-400 text-sm mb-4">Accompagnement commercial stratégique.</p>
+       <ul class="space-y-2 text-sm">
+        <li class="flex items-center gap-2 text-gray-300">
+         <svg class="w-4 h-4 text-pink-400" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+         </svg> Analyse produit</li>
+        <li class="flex items-center gap-2 text-gray-300">
+         <svg class="w-4 h-4 text-pink-400" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+         </svg> Stratégie commerciale</li>
+        <li class="flex items-center gap-2 text-gray-300">
+         <svg class="w-4 h-4 text-pink-400" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+         </svg> Accompagnement</li>
+       </ul></a>
+     </div>
+    </div>
+   </section><!-- Projects Section -->
+   <section id="projects" class="relative py-20 md:py-32 px-4">
+    <div class="max-w-7xl mx-auto">
+     <div class="text-center mb-16">
+      <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-card mb-6"><span class="text-blue-400">🚀</span> <span class="text-sm text-gray-300">Projets Réalisés</span>
+      </div>
+      <h2 class="font-display text-3xl md:text-4xl lg:text-5xl font-bold mb-4">Portfolio <span class="gradient-text">Premium</span></h2>
+      <p class="text-gray-400 max-w-2xl mx-auto">Mes réalisations les plus abouties, reflet de mon engagement envers l'excellence.</p>
+     </div>
+     <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <a href="#project-plateforme" class="project-card cursor-pointer">
+       <div class="relative rounded-2xl overflow-hidden gradient-border">
+        <div class="aspect-video bg-gradient-to-br from-blue-900/50 to-purple-900/50 relative overflow-hidden">
+         <div class="absolute inset-4 rounded-lg bg-gray-900/80 border border-white/10 overflow-hidden">
+          <div class="h-6 bg-gray-800 flex items-center px-3 gap-1.5">
+           <div class="w-2.5 h-2.5 rounded-full bg-red-400"></div>
+           <div class="w-2.5 h-2.5 rounded-full bg-yellow-400"></div>
+           <div class="w-2.5 h-2.5 rounded-full bg-green-400"></div>
+          </div>
+          <div class="p-3">
+           <div class="h-3 w-3/4 bg-gradient-to-r from-blue-500/30 to-cyan-500/30 rounded mb-2"></div>
+           <div class="h-2 w-full bg-white/10 rounded mb-1"></div>
+           <div class="h-2 w-5/6 bg-white/10 rounded mb-3"></div>
+           <div class="grid grid-cols-3 gap-2">
+            <div class="h-8 bg-blue-500/20 rounded"></div>
+            <div class="h-8 bg-purple-500/20 rounded"></div>
+            <div class="h-8 bg-cyan-500/20 rounded"></div>
+           </div>
+          </div>
+         </div>
+         <div class="project-overlay absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent opacity-0 transition-opacity duration-300 flex items-end p-6"><button class="btn-primary px-6 py-3 rounded-full text-sm font-medium flex items-center gap-2">Voir le projet 
+           <svg class="w-4 h-4" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+           </svg></button>
+         </div>
+        </div>
+       </div>
+       <div class="mt-5">
+        <h3 class="font-display text-xl font-semibold mb-2">Plateforme de Formation</h3>
+        <p class="text-gray-400 text-sm mb-4">Plateforme e-learning avec système de paiement intégré.</p>
+        <div class="flex flex-wrap gap-2"><span class="px-3 py-1 text-xs rounded-full bg-blue-500/10 text-blue-400 border border-blue-500/20">React</span> <span class="px-3 py-1 text-xs rounded-full bg-green-500/10 text-green-400 border border-green-500/20">Node.js</span> <span class="px-3 py-1 text-xs rounded-full bg-purple-500/10 text-purple-400 border border-purple-500/20">MongoDB</span>
+        </div>
+       </div></a> <a href="#project-plateforme" class="project-card cursor-pointer">
+       <div class="relative rounded-2xl overflow-hidden gradient-border">
+        <div class="aspect-video bg-gradient-to-br from-cyan-900/50 to-green-900/50 relative overflow-hidden">
+         <div class="absolute inset-4 rounded-lg bg-gray-900/80 border border-white/10 overflow-hidden">
+          <div class="h-6 bg-gray-800 flex items-center px-3 gap-1.5">
+           <div class="w-2.5 h-2.5 rounded-full bg-red-400"></div>
+           <div class="w-2.5 h-2.5 rounded-full bg-yellow-400"></div>
+           <div class="w-2.5 h-2.5 rounded-full bg-green-400"></div>
+          </div>
+          <div class="p-3">
+           <div class="flex gap-2 mb-3">
+            <div class="w-1/3 h-12 bg-gradient-to-br from-cyan-500/30 to-green-500/30 rounded flex items-center justify-center">
+             <div class="w-6 h-6 rounded-full bg-white/20"></div>
+            </div>
+            <div class="w-2/3">
+             <div class="h-2 w-3/4 bg-white/20 rounded mb-1"></div>
+             <div class="h-2 w-1/2 bg-white/10 rounded"></div>
+            </div>
+           </div>
+           <div class="h-2 w-full bg-white/10 rounded mb-1"></div>
+           <div class="h-2 w-4/5 bg-white/10 rounded"></div>
+          </div>
+         </div>
+         <div class="project-overlay absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent opacity-0 transition-opacity duration-300 flex items-end p-6"><button class="btn-primary px-6 py-3 rounded-full text-sm font-medium flex items-center gap-2">Voir le projet 
+           <svg class="w-4 h-4" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+           </svg></button>
+         </div>
+        </div>
+       </div>
+       <div class="mt-5">
+        <h3 class="font-display text-xl font-semibold mb-2">Site Web Entreprise</h3>
+        <p class="text-gray-400 text-sm mb-4">Site vitrine professionnel avec design moderne et SEO.</p>
+        <div class="flex flex-wrap gap-2"><span class="px-3 py-1 text-xs rounded-full bg-orange-500/10 text-orange-400 border border-orange-500/20">HTML/CSS</span> <span class="px-3 py-1 text-xs rounded-full bg-yellow-500/10 text-yellow-400 border border-yellow-500/20">JavaScript</span> <span class="px-3 py-1 text-xs rounded-full bg-blue-500/10 text-blue-400 border border-blue-500/20">Tailwind</span>
+        </div>
+       </div></a> <a href="#project-plateforme" class="project-card cursor-pointer">
+       <div class="relative rounded-2xl overflow-hidden gradient-border">
+        <div class="aspect-video bg-gradient-to-br from-purple-900/50 to-pink-900/50 relative overflow-hidden">
+         <div class="absolute inset-4 rounded-lg bg-gray-900/80 border border-white/10 overflow-hidden">
+          <div class="h-6 bg-gray-800 flex items-center px-3 gap-1.5">
+           <div class="w-2.5 h-2.5 rounded-full bg-red-400"></div>
+           <div class="w-2.5 h-2.5 rounded-full bg-yellow-400"></div>
+           <div class="w-2.5 h-2.5 rounded-full bg-green-400"></div>
+          </div>
+          <div class="p-3">
+           <div class="grid grid-cols-4 gap-1 mb-3">
+            <div class="h-6 bg-purple-500/20 rounded text-xs flex items-center justify-center text-purple-300/50">
+             ID
+            </div>
+            <div class="h-6 bg-purple-500/20 rounded text-xs flex items-center justify-center text-purple-300/50">
+             Nom
+            </div>
+            <div class="h-6 bg-purple-500/20 rounded text-xs flex items-center justify-center text-purple-300/50">
+             Date
+            </div>
+            <div class="h-6 bg-purple-500/20 rounded text-xs flex items-center justify-center text-purple-300/50">
+             Status
+            </div>
+           </div>
+           <div class="space-y-1">
+            <div class="h-4 w-full bg-white/5 rounded"></div>
+            <div class="h-4 w-full bg-white/5 rounded"></div>
+            <div class="h-4 w-full bg-white/5 rounded"></div>
+           </div>
+          </div>
+         </div>
+         <div class="project-overlay absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent opacity-0 transition-opacity duration-300 flex items-end p-6"><button class="btn-primary px-6 py-3 rounded-full text-sm font-medium flex items-center gap-2">Voir le projet 
+           <svg class="w-4 h-4" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+           </svg></button>
+         </div>
+        </div>
+       </div>
+       <div class="mt-5">
+        <h3 class="font-display text-xl font-semibold mb-2">Système de Gestion</h3>
+        <p class="text-gray-400 text-sm mb-4">Application avec base de données optimisée et tableau de bord.</p>
+        <div class="flex flex-wrap gap-2"><span class="px-3 py-1 text-xs rounded-full bg-cyan-500/10 text-cyan-400 border border-cyan-500/20">Python</span> <span class="px-3 py-1 text-xs rounded-full bg-blue-500/10 text-blue-400 border border-blue-500/20">PostgreSQL</span> <span class="px-3 py-1 text-xs rounded-full bg-green-500/10 text-green-400 border border-green-500/20">FastAPI</span>
+        </div>
+       </div></a>
+     </div>
+    </div>
+   </section><!-- Expertise Section -->
+   <section id="team" class="relative py-20 md:py-32 px-4">
+    <div class="max-w-7xl mx-auto">
+     <div class="text-center mb-16">
+      <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-card mb-6"><span class="text-blue-400">👥</span> <span class="text-sm text-gray-300">Notre Équipe</span>
+      </div>
+      <h2 class="font-display text-3xl md:text-4xl lg:text-5xl font-bold mb-4">Rencontrez les <span class="gradient-text">Experts</span> de Chaltech</h2>
+      <p class="text-gray-400 max-w-2xl mx-auto">Des talents passionnés, unis par la vision d'une Afrique technologique forte.</p>
+     </div>
+     <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+      <div class="glass-card rounded-2xl p-6 text-center hover:border-cyan-500/50 transition-all">
+       <div class="w-24 h-24 mx-auto mb-4 rounded-full bg-gradient-to-br from-blue-500 to-cyan-500 flex items-center justify-center"><span class="text-4xl font-bold text-white">CM</span>
+       </div>
+       <h3 class="font-semibold text-white mb-1" id="founder-name">Chaldin Mulongo</h3>
+       <p id="founder-title" class="text-sm text-cyan-400 font-semibold mb-3">Fondateur &amp; CEO</p>
+       <p class="text-sm text-gray-400">Visionnaire technologique, entrepreneur passionné par l'innovation africaine.</p>
+      </div>
+      <div class="glass-card rounded-2xl p-6 text-center hover:border-cyan-500/50 transition-all">
+       <div class="w-24 h-24 mx-auto mb-4 rounded-full bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center"><span class="text-4xl">🚀</span>
+       </div>
+       <h3 class="font-semibold text-white mb-1">Expert Technique</h3>
+       <p class="text-sm text-purple-400 font-semibold mb-3">Développement</p>
+       <p class="text-sm text-gray-400">Spécialiste en architecture logicielle et systèmes distribués.</p>
+      </div>
+      <div class="glass-card rounded-2xl p-6 text-center hover:border-cyan-500/50 transition-all">
+       <div class="w-24 h-24 mx-auto mb-4 rounded-full bg-gradient-to-br from-green-500 to-emerald-500 flex items-center justify-center"><span class="text-4xl">🤖</span>
+       </div>
+       <h3 class="font-semibold text-white mb-1">Spécialiste IA</h3>
+       <p class="text-sm text-green-400 font-semibold mb-3">Intelligence Artificielle</p>
+       <p class="text-sm text-gray-400">Expert en ML et solutions d'automatisation intelligente.</p>
+      </div>
+      <div class="glass-card rounded-2xl p-6 text-center hover:border-cyan-500/50 transition-all">
+       <div class="w-24 h-24 mx-auto mb-4 rounded-full bg-gradient-to-br from-orange-500 to-yellow-500 flex items-center justify-center"><span class="text-4xl">💼</span>
+       </div>
+       <h3 class="font-semibold text-white mb-1">Gestionnaire Projets</h3>
+       <p class="text-sm text-orange-400 font-semibold mb-3">Coordination</p>
+       <p class="text-sm text-gray-400">Orchestration de projets complexes et satisfaction client.</p>
+      </div>
+     </div>
+    </div>
+   </section><!-- Expertise Section -->
+   <section id="expertise" class="relative py-20 md:py-32 px-4">
+    <div class="max-w-7xl mx-auto">
+     <div class="text-center mb-16">
+      <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-card mb-6"><span class="text-blue-400">🎯</span> <span class="text-sm text-gray-300">Expertise Technique</span>
+      </div>
+      <h2 class="font-display text-3xl md:text-4xl lg:text-5xl font-bold mb-4"><span class="gradient-text">Compétences</span> Maîtrisées</h2>
+     </div>
+     <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+      <div>
+       <div class="flex items-center justify-between mb-2">
+        <h3 class="font-semibold text-white">Développement Web</h3><span class="text-sm text-blue-400 font-semibold">95%</span>
+       </div>
+       <div class="skill-bar">
+        <div class="skill-bar-fill" style="--width: 95%"></div>
+       </div>
+       <div>
+        <div class="flex items-center justify-between mb-2">
+         <h3 class="font-semibold text-white">Bases de Données</h3><span class="text-sm text-cyan-400 font-semibold">88%</span>
+        </div>
+        <div class="skill-bar">
+         <div class="skill-bar-fill" style="--width: 88%"></div>
+        </div>
+        <div>
+         <div class="flex items-center justify-between mb-2">
+          <h3 class="font-semibold text-white">Génie Logiciel</h3><span class="text-sm text-purple-400 font-semibold">90%</span>
+         </div>
+         <div class="skill-bar">
+          <div class="skill-bar-fill" style="--width: 90%"></div>
+         </div>
+         <div>
+          <div class="flex items-center justify-between mb-2">
+           <h3 class="font-semibold text-white">Intelligence Artificielle</h3><span class="text-sm text-green-400 font-semibold">82%</span>
+          </div>
+          <div class="skill-bar">
+           <div class="skill-bar-fill" style="--width: 82%"></div>
+          </div>
+          <div>
+           <div class="flex items-center justify-between mb-2">
+            <h3 class="font-semibold text-white">Systèmes Embarqués</h3><span class="text-sm text-orange-400 font-semibold">78%</span>
+           </div>
+           <div class="skill-bar">
+            <div class="skill-bar-fill" style="--width: 78%"></div>
+           </div>
+           <div>
+            <div class="flex items-center justify-between mb-2">
+             <h3 class="font-semibold text-white">Électricité Appliquée</h3><span class="text-sm text-pink-400 font-semibold">85%</span>
+            </div>
+            <div class="skill-bar">
+             <div class="skill-bar-fill" style="--width: 85%"></div>
+            </div>
+           </div>
+          </div>
+         </div>
+        </div>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section><!-- Contact Section -->
+   <section id="contact" class="relative py-20 md:py-32 px-4">
+    <div class="max-w-7xl mx-auto">
+     <div class="grid lg:grid-cols-2 gap-12">
+      <div>
+       <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-card mb-6"><span class="text-blue-400">📬</span> <span class="text-sm text-gray-300">Contact</span>
+       </div>
+       <h2 class="font-display text-3xl md:text-4xl lg:text-5xl font-bold mb-6">Démarrons Votre <span class="gradient-text">Projet</span></h2>
+       <p class="text-gray-300 mb-8 leading-relaxed">Prêt à transformer vos idées en réalité ? Contactez-moi pour discuter de votre projet.</p>
+       <div class="space-y-4 mb-8"><a href="mailto:chaldinmulongo977@gmail.com" class="flex items-center gap-4 glass-card p-4 rounded-xl hover:bg-white/5 transition-colors group">
+         <div class="w-12 h-12 rounded-xl bg-blue-500/20 flex items-center justify-center">
+          <svg class="w-6 h-6 text-blue-400" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+          </svg>
+         </div>
+         <div>
+          <p class="text-sm text-gray-400">Email</p>
+          <p id="contact-email" class="font-medium group-hover:text-blue-400 transition-colors">chaldinmulongo977@gmail.com</p>
+         </div></a> <a href="https://wa.me/243849291889" target="_blank" rel="noopener noreferrer" class="flex items-center gap-4 glass-card p-4 rounded-xl hover:bg-white/5 transition-colors group">
+         <div class="w-12 h-12 rounded-xl bg-green-500/20 flex items-center justify-center">
+          <svg class="w-6 h-6 text-green-400" viewbox="0 0 24 24" fill="currentColor">
+           <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
+          </svg>
+         </div>
+         <div>
+          <p class="text-sm text-gray-400">WhatsApp</p>
+          <p id="whatsapp-number" class="font-medium group-hover:text-green-400 transition-colors">+243 849 291 889</p>
+         </div></a>
+       </div>
+       <div class="flex flex-wrap gap-2"><a href="https://www.linkedin.com/company/chaltech/" target="_blank" rel="noopener noreferrer" class="w-12 h-12 rounded-xl glass-card flex items-center justify-center hover:bg-blue-500/20 transition-colors group">
+         <svg class="w-5 h-5 text-gray-400 group-hover:text-blue-400 transition-colors" viewbox="0 0 24 24" fill="currentColor">
+          <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+         </svg></a> <a id="github-link" href="https://github.com/chaldinmulongo977-oss" target="_blank" rel="noopener noreferrer" class="w-12 h-12 rounded-xl glass-card flex items-center justify-center hover:bg-gray-500/20 transition-colors group">
+         <svg class="w-5 h-5 text-gray-400 group-hover:text-white transition-colors" viewbox="0 0 24 24" fill="currentColor">
+          <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
+         </svg></a> <a href="https://twitter.com/chaltech" target="_blank" rel="noopener noreferrer" class="w-12 h-12 rounded-xl glass-card flex items-center justify-center hover:bg-blue-500/20 transition-colors group">
+         <svg class="w-5 h-5 text-gray-400 group-hover:text-blue-400 transition-colors" viewbox="0 0 24 24" fill="currentColor">
+          <path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2s9 5 20 5a9.5 9.5 0 00-9-5.5c4.75 2.25 7-7 7-7z" />
+         </svg></a>
+       </div>
+       <div class="glass-card rounded-2xl p-6 md:p-8">
+        <h3 class="font-display text-xl font-semibold mb-6">Contactez Notre Équipe</h3>
+        <form id="contact-form" class="space-y-5">
+         <div><label for="name" class="block text-sm text-gray-400 mb-2">Nom complet</label> <input type="text" id="name" name="name" required class="input-modern w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-gray-500 transition-all" placeholder="Votre nom">
+         </div>
+         <div><label for="email" class="block text-sm text-gray-400 mb-2">Email</label> <input type="email" id="email" name="email" required class="input-modern w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-gray-500 transition-all" placeholder="votre@email.com">
+         </div>
+         <div><label for="subject" class="block text-sm text-gray-400 mb-2">Sujet</label> <select id="subject" name="subject" class="input-modern w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white transition-all"> <option value="" class="bg-gray-900">Sélectionnez un sujet</option> <option value="website" class="bg-gray-900">Création de site web</option> <option value="hosting" class="bg-gray-900">Hébergement &amp; Déploiement</option> <option value="training" class="bg-gray-900">Formation</option> <option value="ai" class="bg-gray-900">Solutions IA</option> <option value="marketing" class="bg-gray-900">Marketing Digital</option> <option value="other" class="bg-gray-900">Autre</option> </select>
+         </div>
+         <div><label for="message" class="block text-sm text-gray-400 mb-2">Message</label> <textarea id="message" name="message" rows="4" required class="input-modern w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-gray-500 transition-all resize-none" placeholder="Décrivez votre projet..."></textarea>
+         </div><button type="submit" class="btn-primary w-full py-4 rounded-xl font-semibold text-white flex items-center justify-center gap-2">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+          </svg> Envoyer le message </button>
+        </form>
+        <div id="form-success" class="hidden mt-4 p-4 rounded-xl bg-green-500/20 border border-green-500/30 text-green-400 text-center">
+         ✅ Message envoyé avec succès ! Je vous répondrai rapidement.
+        </div>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section><!-- Footer -->
+   <footer class="relative py-12 px-4 border-t border-white/5">
+    <div class="max-w-7xl mx-auto">
+     <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+      <div class="text-center md:text-left"><a href="#hero" class="font-display text-2xl font-bold gradient-text">⚡ CHALTECH</a>
+       <p class="text-gray-400 text-sm mt-2 max-w-sm">"Construire l'avenir par l'intelligence technologique."</p>
+      </div>
+      <div class="flex flex-wrap items-center justify-center gap-6 text-sm text-gray-400"><a href="#about" class="hover:text-white transition-colors">À Propos</a> <a href="#services" class="hover:text-white transition-colors">Services</a> <a href="#projects" class="hover:text-white transition-colors">Réalisations</a> <a href="#team" class="hover:text-white transition-colors">Équipe</a> <a href="#contact" class="hover:text-white transition-colors">Contact</a>
+      </div>
+     </div>
+     <div class="mt-8 pt-8 border-t border-white/5 text-center">
+      <p class="text-gray-500 text-sm">© 2025 Chaltech - Solutions Technologiques Innovantes. Tous droits réservés. Conçu avec 💙 pour l'Afrique.</p>
+     </div>
+    </div>
+   </footer>
+  </div>
+  <script>
+    const defaultConfig = {
+      company_name: 'CHALTECH',
+      company_tagline: 'Innovation Technologique pour l\'Afrique',
+      founder_name: 'Chaldin Mulongo',
+      founder_title: 'Fondateur & CEO',
+      mission_title: 'Notre Mission',
+      mission_text: 'Proposer des solutions technologiques modernes et intelligentes',
+      contact_email: 'contact@chaltech.cd',
+      whatsapp_number: '+243 849 291 889',
+      github_url: 'https://github.com/chaldinmulongo977-oss',
+      background_color: '#0a0a0f',
+      surface_color: '#12121a',
+      text_color: '#ffffff',
+      primary_color: '#3b82f6',
+      secondary_color: '#06b6d4'
+    };
+    
+    let config = { ...defaultConfig };
+    let currentView = 'main';
+    
+    const serviceDetails = {
+      web: {
+        title: 'Création de Sites Web',
+        icon: '💻',
+        description: 'Je crée des sites web modernes, responsifs et performants adaptés à vos besoins.',
+        features: [
+          { title: 'Design Premium', desc: 'Interfaces modernes et épurées' },
+          { title: 'Performance', desc: 'Vitesse de chargement optimale' },
+          { title: 'Responsive', desc: 'Parfait sur tous les appareils' },
+          { title: 'SEO Ready', desc: 'Optimisé pour les moteurs de recherche' }
+        ],
+        technologies: ['HTML5', 'CSS3', 'JavaScript', 'React', 'Node.js', 'MongoDB'],
+        benefits: ['Augmentation du trafic', 'Meilleure conversion', 'Crédibilité professionnelle', 'Support client 24/7']
+      },
+      hosting: {
+        title: 'Hébergement & Déploiement',
+        icon: '🌐',
+        description: 'Mise en ligne sécurisée avec infrastructure cloud et maintenance continue.',
+        features: [
+          { title: 'Sécurité SSL', desc: 'Certificats de sécurité intégrés' },
+          { title: 'Performance', desc: 'CDN global pour rapidité' },
+          { title: 'Uptime 99.9%', desc: 'Disponibilité garantie' },
+          { title: 'Backups Auto', desc: 'Sauvegarde automatique quotidienne' }
+        ],
+        technologies: ['AWS', 'Google Cloud', 'DigitalOcean', 'Netlify', 'Vercel'],
+        benefits: ['Site toujours accessible', 'Données sécurisées', 'Pas de maintenance', 'Support prioritaire']
+      },
+      training: {
+        title: 'Formation en Ligne',
+        icon: '📚',
+        description: 'Programmes de formation pratiques et personnalisés pour tous les niveaux.',
+        features: [
+          { title: 'Contenu Moderne', desc: 'Cours basés sur les pratiques actuelles' },
+          { title: 'Projets Pratiques', desc: 'Apprentissage par la pratique' },
+          { title: 'Certification', desc: 'Certificats reconnus' },
+          { title: 'Support Personnel', desc: 'Mentor dédié' }
+        ],
+        technologies: ['Python', 'JavaScript', 'React', 'AI Tools', 'Business'],
+        benefits: ['Compétences recherchées', 'Accès illimité', 'Communauté active', 'Opportunités d\'emploi']
+      },
+      ai: {
+        title: 'Solutions IA',
+        icon: '🤖',
+        description: 'Intégration intelligente d\'IA pour automatiser et optimiser votre activité.',
+        features: [
+          { title: 'Chatbots IA', desc: 'Assistants conversationnels' },
+          { title: 'Automatisation', desc: 'Flux de travail optimisés' },
+          { title: 'Analytics', desc: 'Prédictions basées sur données' },
+          { title: 'Optimisation', desc: 'Amélioration continue' }
+        ],
+        technologies: ['ChatGPT', 'Claude', 'LLMs', 'Machine Learning', 'Python'],
+        benefits: ['Productivité accrue', 'Réduction coûts', 'Meilleure qualité', 'Innovation garantie']
+      },
+      marketing: {
+        title: 'Marketing Digital',
+        icon: '📈',
+        description: 'Stratégies de marketing complètes pour augmenter votre visibilité en ligne.',
+        features: [
+          { title: 'Branding', desc: 'Identité visuelle forte' },
+          { title: 'SEO/SEM', desc: 'Visibilité maximale' },
+          { title: 'Social Media', desc: 'Engagement communauté' },
+          { title: 'Content', desc: 'Contenu pertinent' }
+        ],
+        technologies: ['SEO', 'Google Ads', 'Social Media', 'Analytics', 'CRM'],
+        benefits: ['Augmentation des ventes', 'Notoriété accrue', 'ROI positif', 'Audience fidèle']
+      },
+      import: {
+        title: 'Import / Export',
+        icon: '🌍',
+        description: 'Accompagnement complet dans vos projets commerciaux internationaux.',
+        features: [
+          { title: 'Analyse Marché', desc: 'Étude approfondie' },
+          { title: 'Sourcing', desc: 'Fournisseurs qualifiés' },
+          { title: 'Logistique', desc: 'Chaîne logistique optimale' },
+          { title: 'Conseil', desc: 'Expertise commerce' }
+        ],
+        technologies: ['Market Research', 'Logistics', 'B2B Platforms', 'Compliance'],
+        benefits: ['Réduction risques', 'Partenaires fiables', 'Conformité juridique', 'Croissance rapide']
+      }
+    };
+
+    const projectDetails = {
+      plateforme: {
+        title: 'Plateforme de Formation en Ligne',
+        image: '📚',
+        year: '2024',
+        description: 'Plateforme d\'apprentissage complète avec système de paiement, progression utilisateur et tableau de bord administrateur.',
+        features: ['Système de paiement intégré', 'Suivi de progression', 'Tableau de bord', 'Certificats automatiques', 'Contenu vidéo', 'Quiz interactifs'],
+        technologies: ['React', 'Node.js', 'MongoDB', 'Stripe', 'Firebase'],
+        impact: 'Plateforme utilisée par 500+ étudiants, génération de 50k$ de revenu mensuel',
+        link: '#contact'
+      },
+      website: {
+        title: 'Site Web Professionnel',
+        image: '🌐',
+        year: '2024',
+        description: 'Site vitrine moderne pour entreprise avec SEO optimisé et haute performance.',
+        features: ['Design responsive', 'Optimisation SEO', 'Blog intégré', 'Formulaires avancés', 'Analytics', 'Performance 90+'],
+        technologies: ['HTML5', 'CSS3', 'JavaScript', 'Tailwind CSS', 'Figma'],
+        impact: '100% responsif, score Lighthouse 98/100, augmentation trafic +300%',
+        link: '#contact'
+      },
+      gestion: {
+        title: 'Système de Gestion Base de Données',
+        image: '📊',
+        year: '2024',
+        description: 'Application d\'entreprise pour gestion de données avec interface intuitive et rapports automatiques.',
+        features: ['CRUD complet', 'Rapports PDF', 'Export Excel', 'Dashboard temps réel', 'Filtrage avancé', 'Sécurité'],
+        technologies: ['Python', 'PostgreSQL', 'FastAPI', 'Vue.js', 'Docker'],
+        impact: 'Réduit temps gestion 70%, utilisée par 3 entreprises, 10k données traitées/jour',
+        link: '#contact'
+      }
+    };
+
+    function renderDetailPage(type, id) {
+      const main = document.getElementById('app-wrapper');
+      let details = type === 'service' ? serviceDetails[id] : projectDetails[id];
+      if (!details) return;
+
+      let content = `
+        <div class="w-full h-full overflow-auto bg-grid">
+          <nav class="fixed top-0 left-0 right-0 z-50 glass">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+              <div class="flex items-center justify-between h-16 md:h-20">
+                <button onclick="currentView='main'; location.hash='#story'; location.reload();" class="font-display font-bold text-xl md:text-2xl gradient-text hover:opacity-80 transition-opacity">
+                  ⚡ CHALTECH
+                </button>
+                <button onclick="currentView='main'; location.hash='#story'; location.reload();" class="btn-secondary px-4 py-2 rounded-full text-sm font-medium">← Retour</button>
+              </div>
+            </div>
+          </nav>
+
+          <section class="relative min-h-screen py-20 px-4 pt-24">
+            <div class="max-w-5xl mx-auto">
+              <div class="animate-slide-up opacity-0 animate-delay-1" style="animation: slide-up 0.8s ease-out forwards;">
+                <div class="flex items-start gap-6 mb-8">
+                  <div class="text-6xl">${details.icon}</div>
+                  <div>
+                    <p class="text-blue-400 text-sm font-semibold mb-2">${type === 'service' ? 'Service Premium' : 'Projet Premium'}</p>
+                    <h1 class="font-display text-4xl md:text-5xl font-bold mb-4">${details.title}</h1>
+                    <p class="text-gray-300 text-lg">${details.description}</p>
+                  </div>
+                </div>
+                
+                <div class="grid md:grid-cols-2 gap-12 mt-12">
+                  <div>
+                    <h2 class="font-display text-2xl font-bold mb-6">Points Clés</h2>
+                    <div class="space-y-4">
+                      ${(details.features || []).map(f => `
+                        <div class="glass-card p-4 rounded-lg">
+                          <h3 class="font-semibold text-white mb-1">${f.title}</h3>
+                          <p class="text-gray-400 text-sm">${f.desc}</p>
+                        </div>
+                      `).join('')}
+                    </div>
+                  </div>
+                  
+                  <div>
+                    <h2 class="font-display text-2xl font-bold mb-6">Bénéfices</h2>
+                    <div class="space-y-3">
+                      ${(details.benefits || []).map(b => `
+                        <div class="flex items-start gap-3">
+                          <svg class="w-5 h-5 text-cyan-400 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                          </svg>
+                          <span class="text-gray-300">${b}</span>
+                        </div>
+                      `).join('')}
+                    </div>
+                  </div>
+                </div>
+
+                <div class="mt-12 glass-card p-8 rounded-2xl">
+                  <h2 class="font-display text-2xl font-bold mb-6">Technologies Utilisées</h2>
+                  <div class="flex flex-wrap gap-3">
+                    ${(details.technologies || []).map(t => `
+                      <span class="px-4 py-2 rounded-full bg-blue-500/10 text-blue-400 border border-blue-500/20 text-sm">${t}</span>
+                    `).join('')}
+                  </div>
+                </div>
+
+                ${details.impact ? `
+                  <div class="mt-8 glass-card p-8 rounded-2xl border border-green-500/20 bg-gradient-to-r from-green-900/10 to-cyan-900/10">
+                    <h2 class="font-display text-2xl font-bold mb-4 text-green-400">💚 Impact Réel</h2>
+                    <p class="text-gray-300">${details.impact}</p>
+                  </div>
+                ` : ''}
+
+                <div class="mt-12 text-center">
+                  <p class="text-gray-400 mb-6">Intéressé par ce ${type === 'service' ? 'service' : 'type de projet'} ?</p>
+                  <button onclick="currentView='main'; location.hash='#contact'; location.reload();" class="btn-primary px-8 py-4 rounded-full font-semibold text-white inline-flex items-center gap-2">
+                    Démarrer un Projet
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                    </svg>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+      `;
+
+      main.innerHTML = content;
+      window.scrollTo({top: 0});
+    }
+
+    function renderMain() {
+      location.reload();
+    }
+
+    if (window.elementSdk) {
+      window.elementSdk.init({
+        defaultConfig,
+        onConfigChange: async (newConfig) => {
+          config = { ...defaultConfig, ...newConfig };
+          
+          const companyName = document.getElementById('company-name');
+          if (companyName) companyName.textContent = config.company_name || defaultConfig.company_name;
+          
+          const companyTagline = document.getElementById('company-tagline');
+          if (companyTagline) companyTagline.textContent = config.company_tagline || defaultConfig.company_tagline;
+          
+          const founderName = document.getElementById('founder-name');
+          if (founderName) founderName.textContent = config.founder_name || defaultConfig.founder_name;
+          
+          const founderTitle = document.getElementById('founder-title');
+          if (founderTitle) founderTitle.textContent = config.founder_title || defaultConfig.founder_title;
+          
+          const contactEmail = document.getElementById('contact-email');
+          if (contactEmail) contactEmail.textContent = config.contact_email || defaultConfig.contact_email;
+          
+          const whatsappNumber = document.getElementById('whatsapp-number');
+          if (whatsappNumber) whatsappNumber.textContent = config.whatsapp_number || defaultConfig.whatsapp_number;
+          
+          const githubLink = document.getElementById('github-link');
+          if (githubLink) githubLink.href = config.github_url || defaultConfig.github_url;
+          
+          document.documentElement.style.setProperty('--bg-primary', config.background_color || defaultConfig.background_color);
+          document.documentElement.style.setProperty('--bg-secondary', config.surface_color || defaultConfig.surface_color);
+          document.documentElement.style.setProperty('--text-primary', config.text_color || defaultConfig.text_color);
+          document.documentElement.style.setProperty('--accent-primary', config.primary_color || defaultConfig.primary_color);
+          document.documentElement.style.setProperty('--accent-secondary', config.secondary_color || defaultConfig.secondary_color);
+        },
+        mapToCapabilities: (config) => ({
+          recolorables: [
+            {
+              get: () => config.background_color || defaultConfig.background_color,
+              set: (value) => window.elementSdk.setConfig({ background_color: value })
+            },
+            {
+              get: () => config.surface_color || defaultConfig.surface_color,
+              set: (value) => window.elementSdk.setConfig({ surface_color: value })
+            },
+            {
+              get: () => config.text_color || defaultConfig.text_color,
+              set: (value) => window.elementSdk.setConfig({ text_color: value })
+            },
+            {
+              get: () => config.primary_color || defaultConfig.primary_color,
+              set: (value) => window.elementSdk.setConfig({ primary_color: value })
+            },
+            {
+              get: () => config.secondary_color || defaultConfig.secondary_color,
+              set: (value) => window.elementSdk.setConfig({ secondary_color: value })
+            }
+          ],
+          borderables: [],
+          fontEditable: {
+            get: () => config.font_family || 'Inter',
+            set: (value) => window.elementSdk.setConfig({ font_family: value })
+          },
+          fontSizeable: {
+            get: () => config.font_size || 16,
+            set: (value) => window.elementSdk.setConfig({ font_size: value })
+          }
+        }),
+        mapToEditPanelValues: (config) => new Map([
+          ['hero_name', config.hero_name || defaultConfig.hero_name],
+          ['hero_title', config.hero_title || defaultConfig.hero_title],
+          ['hero_tagline', config.hero_tagline || defaultConfig.hero_tagline],
+          ['hero_birthdate', config.hero_birthdate || defaultConfig.hero_birthdate],
+          ['story_title', config.story_title || defaultConfig.story_title],
+          ['chaltech_date', config.chaltech_date || defaultConfig.chaltech_date],
+          ['contact_email', config.contact_email || defaultConfig.contact_email],
+          ['whatsapp_number', config.whatsapp_number || defaultConfig.whatsapp_number],
+          ['github_url', config.github_url || defaultConfig.github_url]
+        ])
+      });
+    }
+    
+    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    
+    if (mobileMenuBtn && mobileMenu) {
+      mobileMenuBtn.addEventListener('click', () => {
+        mobileMenu.classList.toggle('hidden');
+      });
+      
+      mobileMenu.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+          mobileMenu.classList.add('hidden');
+        });
+      });
+    }
+    
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        const href = this.getAttribute('href');
+        if (href === '#' || href.startsWith('#detail-') || href.startsWith('#project-')) {
+          e.preventDefault();
+          if (href.startsWith('#detail-')) {
+            const serviceId = href.replace('#detail-', '');
+            renderDetailPage('service', serviceId);
+          } else if (href.startsWith('#project-')) {
+            const projectId = href.replace('#project-', '');
+            renderDetailPage('project', projectId);
+          } else {
+            const target = document.querySelector(href);
+            if (target) {
+              target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+          }
+        }
+      });
+    });
+    
+    const contactForm = document.getElementById('contact-form');
+    const formSuccess = document.getElementById('form-success');
+    
+    if (contactForm) {
+      contactForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        
+        const submitBtn = contactForm.querySelector('button[type="submit"]');
+        const originalText = submitBtn.innerHTML;
+        submitBtn.innerHTML = '<svg class="w-5 h-5 animate-spin" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg> Envoi en cours...';
+        submitBtn.disabled = true;
+        
+        setTimeout(() => {
+          contactForm.reset();
+          formSuccess.classList.remove('hidden');
+          submitBtn.innerHTML = originalText;
+          submitBtn.disabled = false;
+          
+          setTimeout(() => {
+            formSuccess.classList.add('hidden');
+          }, 5000);
+        }, 1500);
+      });
+    }
+  </script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9d81b34f35d7253d',t:'MTc3MjgwMzY3My4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
